@@ -105,24 +105,5 @@ def soldier_has_duty(soldier: dict, duty_name: str) -> bool:
 
 
 def is_valid_day(day: str) -> bool:
-    """
-    בודקת אם יום הוא חוקי (לא שישי או שבת).
-
-    סוג: פונקציית validation (בדיקת תקינות)
-
-    מקבלת:
-        day (str): היום לבדיקה
-
-    מחזירה:
-        bool: True אם היום חוקי (sunday-thursday)
-              False אם לא חוקי או אסור (friday/saturday או ערך לא תקין)
-
-    זורקת: כלום - תמיד מחזירה bool
-
-    למה הפונקציה קיימת:
-    בדיקת תקינות של יום משמשת בהוספת תורנות.
-    הפרדה של לוגיקת הבדיקה למקום אחד.
-    בעתיד אפשר לשנות את הימים החוקיים במקום אחד.
-    פונקציות validation מחזירות bool ולא זורקות exceptions.
-    """
-    pass
+    lst_days = ["sunday","monday","tuesday","wednesday","thursday"]
+    return day.lower() in lst_days
