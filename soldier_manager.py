@@ -4,7 +4,7 @@ from utils import *
 
 def add_soldier(soldier_id: int, name: str) -> None:
         try:
-            if not name.isalpha():
+            if not name:
                 raise ValueError(f"Name '{name}' must contain only letters.")
             if find_soldier_by_id(soldier_id) is not None:
                 raise ValueError(f"Soldier with ID {soldier_id} already exists!")
@@ -17,16 +17,11 @@ def add_soldier(soldier_id: int, name: str) -> None:
 
 
 def remove_soldier(soldier_id: int) -> None:
-    try:
-        for dct in soldier_list:
-            if find_soldier_by_id(soldier_id):
-                soldier_list.remove(dct)
-                print(f"Success: Soldier '{dct}' removed.")
-            else:
-                print(f"Soldier with ID {soldier_id} not exists!")
-    except ValueError as e:
-        print(f"invalid input {e}")
-    return None
+    soldier = find_soldier_by_id(soldier_id)
+    if soldier is None:
+        raise KeyError(f"Soldier with ID {soldier_id} not exists!")  # חובה לזרוק שגיאה [cite: 121, 147, 177]
+
+    soldier_list.remove(soldier)
 
 def get_all_soldiers() -> list:
     return soldier_list

@@ -1,3 +1,5 @@
+from soldier_manager import *
+
 def add_duty_to_soldier(soldier_id: int, duty_name: str, day: str) -> None:
     """
     מוסיפה תורנות חדשה לחייל.
@@ -22,7 +24,26 @@ def add_duty_to_soldier(soldier_id: int, duty_name: str, day: str) -> None:
     מבצעת בדיקות ומוסיפה תורנות לחייל.
     זורקת exceptions במקרה של שגיאה במקום להחזיר False.
     """
-    pass
+
+    if not is_valid_name(duty_name):
+        raise ValueError("The duty does not exist or is invalid.")
+
+    if not is_valid_day(day):
+        raise ValueError(f"The day {day} is invalid")
+
+    soldier = find_soldier_by_id(soldier_id)
+    if soldier is None:
+        raise KeyError(f"Soldier with ID {soldier_id} not found in the system.")
+
+    for existing_duty in soldier["duty"]:
+        if existing_duty["duty_name"] == duty_name and existing_duty["day"] == day:
+            raise ValueError(f"Duty '{duty_name}' on {day} already exists for this soldier.")
+
+    soldier["duty"].append({
+            "duty_name": duty_name,
+            "day": day,
+            "status": "pending"
+        })
 
 
 def update_duty_status(soldier_id: int, duty_name: str, new_status: str) -> None:

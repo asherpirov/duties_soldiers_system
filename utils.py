@@ -1,5 +1,27 @@
 from data import soldier_list
 
+
+def is_valid_id(id_str: str) -> bool:
+    """
+    בודקת אם ה-ID שהוקלד תקין (לא ריק, מכיל רק ספרות ובאורך הגיוני).
+
+    סוג: פונקציית validation (בדיקת תקינות)
+    מקור קלט: מקבלת מחרוזת (str) לפני ההמרה למספר, כדי למנוע קריסה.
+    """
+    clean_id = id_str.strip()
+
+    if not clean_id:
+        return False
+
+    if not clean_id.isdigit():
+        return False
+
+    if len(clean_id) < 6 or len(clean_id) > 9:
+        return False
+
+    return True
+
+
 def find_soldier_by_id(soldier_id: int) -> dict | None:
     try:
         for soldier in soldier_list:
@@ -29,7 +51,8 @@ def find_duty_by_name(duties: list, duty_name: str) -> dict | None:
     הפרדה של לוגיקת החיפוש למקום אחד.
     מחזירה None במקום לזרוק exception - מאפשרת גמישות.
     """
-    pass
+    if duty_name in duties:
+        return
 
 
 def is_valid_status(status: str) -> bool:
@@ -53,7 +76,10 @@ def is_valid_status(status: str) -> bool:
     גם מקל על שינוי הסטטוסים החוקיים בעתיד.
     פונקציות validation מחזירות bool ולא זורקות exceptions.
     """
-    pass
+
+    status_lst = ["pending", "completed", "missed"]
+    return status in status_lst
+
 
 
 def is_valid_name(name: str) -> bool:
@@ -77,7 +103,9 @@ def is_valid_name(name: str) -> bool:
     בעתיד אפשר להוסיף בדיקות נוספות (אורך מינימלי, תווים חוקיים).
     פונקציות validation מחזירות bool ולא זורקות exceptions.
     """
-    pass
+    if not name:
+        return False
+    return True
 
 
 def soldier_has_duty(soldier: dict, duty_name: str) -> bool:
@@ -101,7 +129,9 @@ def soldier_has_duty(soldier: dict, duty_name: str) -> bool:
     הפרדה של הלוגיקה למקום אחד.
     פונקציות validation מחזירות bool ולא זורקות exceptions.
     """
-    pass
+    if duty_name in soldier.values():
+        return True
+    return False
 
 
 def is_valid_day(day: str) -> bool:

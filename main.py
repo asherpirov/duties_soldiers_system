@@ -1,4 +1,7 @@
 from soldier_manager import *
+from utils import *
+from duty_manager import *
+import data
 
 
 def show_menu() -> None:
@@ -23,16 +26,26 @@ def get_user_choice() -> str:
 
 
 def handle_add_soldier() -> None:
-    name = input("enter the soldier name: ")
-    soldier_id = int(input("enter an id soldier:  "))
-    try:
-        add_soldier(soldier_id, name)
-        print("Soldier added successfully ✓")
-    except ValueError as e:
-        print(f"ERROR {e}")
+    while True:
+        id_input = input("enter id soldier: ")
+
+        if not is_valid_id(id_input):
+            print("ID must be between 6 and 8 numbers only")
+            continue
+
+        soldier_id = int(id_input)
+
+        name = input("enter the soldier name: ")
+
+        try:
+            add_soldier(soldier_id, name)
+            print("Soldier added successfully ✓")
+            break
+        except ValueError as e:
+            print(f"ERROR {e}")
+            print("Please try again")
 
     return None
-
 
 
 
@@ -112,5 +125,7 @@ def main() -> None:
     למה הפונקציה קיימת:
     נקודת הכניסה לתוכנית. מנהלת את הזרימה הראשית.
     """
-    pass
 
+
+if __name__ == "__main__":
+    main()
