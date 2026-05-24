@@ -74,8 +74,6 @@ def update_duty_status(soldier_id: int, duty_name: str, new_status: str) -> None
     if soldier is None:
         raise KeyError(f"Soldier with ID {soldier_id} not found in the system.")
 
-    if not soldier_has_duty(soldier, duty_name):
-        raise KeyError(f"The duty {duty_name} does not exist or is invalid.")
 
     if not is_valid_status(new_status):
         raise ValueError("Status must be pending/completed/missed.")
