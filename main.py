@@ -1,3 +1,5 @@
+"""https://github.com/asherpirov/duties_soldiers_system.git"""
+
 from soldier_manager import *
 from utils import *
 from duty_manager import *
