@@ -129,8 +129,9 @@ def soldier_has_duty(soldier: dict, duty_name: str) -> bool:
     הפרדה של הלוגיקה למקום אחד.
     פונקציות validation מחזירות bool ולא זורקות exceptions.
     """
-    if duty_name in soldier.values():
-        return True
+    for duty in soldier["duty"]:
+        if duty["duty_name"] == duty_name:
+            return True
     return False
 
 

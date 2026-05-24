@@ -70,7 +70,25 @@ def update_duty_status(soldier_id: int, duty_name: str, new_status: str) -> None
     מבצעת בדיקות ומעדכנת את הסטטוס.
     זורקת exceptions במקרה של שגיאה במקום להחזיר False.
     """
-    pass
+    soldier = find_soldier_by_id(soldier_id)
+    if soldier is None:
+        raise KeyError(f"Soldier with ID {soldier_id} not found in the system.")
+
+    if not soldier_has_duty(soldier, duty_name):
+        raise KeyError(f"The duty {duty_name} does not exist or is invalid.")
+
+    if not is_valid_status(new_status):
+        raise ValueError("Status must be pending/completed/missed.")
+
+    for duty in soldier["duty"]:
+        if duty["duty_name"] == duty_name:
+            duty["status"] = new_status
+            return None
+
+    raise KeyError(f"The duty '{duty_name}' does not exist for this soldier.")
+
+
+
 
 
 def get_soldier_duties(soldier_id: int) -> list:
@@ -94,5 +112,8 @@ def get_soldier_duties(soldier_id: int) -> list:
     מפרידה בין הנתונים לבין הגישה אליהם.
     זורקת exception אם החייל לא קיים (במקום להחזיר רשימה ריקה).
     """
-    pass
+    soldier = find_soldier_by_id(soldier_id)
+    if soldier is None:
+        raise KeyError(f"Soldier with ID {soldier_id} not found in the system.")
 
+    return soldier["duty"]

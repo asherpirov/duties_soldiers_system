@@ -125,7 +125,11 @@ def main() -> None:
     למה הפונקציה קיימת:
     נקודת הכניסה לתוכנית. מנהלת את הזרימה הראשית.
     """
-
-
+    add_soldier(323816587, "asher pirov")
+    print(add_duty_to_soldier(323816587, "save", "sunday"))
+    print(soldier_list)
+    print(get_soldier_duties(323816587))
+    print(update_duty_status(323816587, "save", "missed"))
+    print(soldier_list)
 if __name__ == "__main__":
     main()
